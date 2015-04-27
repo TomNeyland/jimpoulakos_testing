@@ -1,10 +1,14 @@
 var gulp = require('gulp'),
+    fs = require('fs'),
     traceur = require('gulp-traceur'),
     babel = require('gulp-babel'),
     plumber = require('gulp-plumber'),
+    babelify = require("babelify"),
     browserify = require('browserify'),
+    partialify = require('partialify'),
     sourcePath = 'src/js/**/*.js',
     distPath = 'dist/js';
+
 
 gulp.task('traceur', function () {
     gulp.src([sourcePath])
@@ -28,6 +32,8 @@ gulp.task('browserify', function () {
     return browserify({
         debug: true
     })
+    .transform(babelify)
+//    .transform(partialify)
     .require('./src/js/index.js', {
         entry: true
     })
@@ -36,7 +42,7 @@ gulp.task('browserify', function () {
         console.error(err.toString());
         this.emit('end');
     })
-    .pipe(gulp.dest('./bundle.js'));
+    .pipe(fs.createWriteStream('./bundle.js'));
 });
 
 gulp.task('default', ['traceur', 'babel', 'watch']);
