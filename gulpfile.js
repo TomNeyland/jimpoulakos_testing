@@ -42,7 +42,7 @@ gulp.task('browserify', function () {
         console.error(err.toString());
         this.emit('end');
     })
-    .pipe(fs.createWriteStream('./bundle.js'));
+    .pipe(fs.createWriteStream(distPath + '/index.js'));
 });
 
 gulp.task('default', ['traceur', 'babel', 'watch']);
