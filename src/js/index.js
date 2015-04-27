@@ -1,2 +1,2 @@
-import EventBus from 'services/EventBus';
+import EventBus from './services/EventBus';
 angular.module('test', []).service('EventBus', EventBus);
